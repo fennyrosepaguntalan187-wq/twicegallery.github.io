@@ -24,7 +24,7 @@
             
             /* Background Settings */
             background-color: #000000;
-            background-image: url('logo.jpg');
+            background-image: url('logo.png');
             background-size: 60%;
             background-position: center center;
             background-repeat: no-repeat;
@@ -90,21 +90,22 @@
             z-index: 5;
         }
 
+        /* === LEFT SIDE SETTINGS === */
         .left {
-            left: 330px;
-            gap: 35px; /* Adjust space between LEFT characters here */
+            left: 60px;
+            gap: 45px; /* Adjust space between LEFT characters here */
         }
 
+        /* === RIGHT SIDE SETTINGS === */
         .right {
-            right: 330px;
-            gap: 65px; /* Adjust space between RIGHT characters here */
+            right: 60px;
+            gap: 60px; /* Adjust space between RIGHT characters here */
         }
 
         .character-wrapper {
             position: relative;
-            /* === CHANGE SIZE HERE === */
-            width: 130px;  /* Smaller size */
-            height: 90px; /* Smaller size */
+            width: 130px;
+            height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -134,7 +135,7 @@
 
         .name-text {
             position: absolute;
-            font-size: 16px; /* Slightly smaller text too */
+            font-size: 16px;
             font-weight: bold;
             color: white;
             text-shadow: 
@@ -210,21 +211,40 @@
             min-height: 300px;
         }
 
-        /* Responsive */
+        /* ===================================== */
+        /* === RESPONSIVE DESIGN (PHONE MODE) === */
+        /* ===================================== */
+
         @media (max-width: 1200px) {
+            /* Hide characters on phone/tablet */
             .character-column {
                 display: none;
+            }
+
+            /* Make title smaller */
+            .title {
+                font-size: 1.8rem;
+            }
+
+            /* Adjust gaps */
+            .gallery-container {
+                gap: 8px;
+                width: 95%;
             }
         }
 
         @media (max-width: 600px) {
+            /* Even smaller for very small phones */
             .title {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+                letter-spacing: 1px;
             }
+            
             .gallery-container {
-                gap: 8px;
+                gap: 5px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -309,7 +329,7 @@
     </div>
 
     <!-- Item 6 -->
-    <div class="gallery-item" size="600px" onclick="openModal('video6')">
+    <div class="gallery-item" onclick="openModal('video6')">
         <img src="images/image6.jpg" alt="Item 6">
     </div>
 
