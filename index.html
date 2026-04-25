@@ -52,7 +52,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px; /* MADE SMALLER FOR MORE SPACE */
             z-index: 10;
         }
 
@@ -85,35 +85,32 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
+            display: flex !important; /* FORCE SHOW */
             flex-direction: column;
             z-index: 5;
         }
 
         .left {
             left: 330px;
-            gap: 35px; /* Adjust space between LEFT characters here */
+            gap: 35px;
         }
 
         .right {
             right: 330px;
-            gap: 65px; /* Adjust space between RIGHT characters here */
+            gap: 65px;
         }
 
         .character-wrapper {
             position: relative;
-            /* === CHANGE SIZE HERE === */
-            width: 130px;  /* Smaller size */
-            height: 90px; /* Smaller size */
+            width: 130px;
+            height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
             
-            /* FLOATING ANIMATION */
             animation: float 3s ease-in-out infinite;
         }
 
-        /* Different speed for each to look natural */
         .character-wrapper:nth-child(1) { animation-delay: 0s; }
         .character-wrapper:nth-child(2) { animation-delay: 0.5s; }
         .character-wrapper:nth-child(3) { animation-delay: 1s; }
@@ -134,7 +131,7 @@
 
         .name-text {
             position: absolute;
-            font-size: 16px; /* Slightly smaller text too */
+            font-size: 16px;
             font-weight: bold;
             color: white;
             text-shadow: 
@@ -146,7 +143,6 @@
             letter-spacing: 2px;
         }
 
-        /* MAGIC EFFECT: Hide image, show name */
         .character-wrapper:hover .character-img {
             opacity: 0;
         }
@@ -214,26 +210,29 @@
         /* === RESPONSIVE DESIGN (PHONE MODE) === */
         /* ===================================== */
 
-        /* I DELETED THE PART THAT HIDES THEM! */
-        /* NOW CHARACTERS WILL SHOW ON PHONE TOO! */
-
         @media (max-width: 1024px) {
-            /* Make characters smaller on phone */
+            /* MAKE CHARACTERS SMALLER AND MOVE CLOSER */
             .character-wrapper {
-                width: 80px;
-                height: 60px;
+                width: 60px !important;  /* VERY SMALL */
+                height: 45px !important; /* VERY SMALL */
             }
             
             .left {
-                left: 10px; /* Move closer to edge */
-                gap: 25px;
+                left: 5px !important; /* VERY CLOSE TO EDGE */
+                gap: 20px !important;
             }
 
             .right {
-                right: 10px; /* Move closer to edge */
-                gap: 25px;
+                right: 5px !important; /* VERY CLOSE TO EDGE */
+                gap: 20px !important;
             }
             
+            /* MAKE PHOTOS SMALLER */
+            .gallery-container {
+                max-width: 400px !important;
+                width: 80% !important;
+            }
+
             .title {
                 font-size: 1.8rem;
             }
@@ -247,6 +246,7 @@
             
             .gallery-container {
                 gap: 5px;
+                max-width: 350px !important;
             }
             
             body {
@@ -446,7 +446,6 @@
         document.getElementById(id).style.display = "flex";
         document.body.style.overflow = "hidden";
         
-        // AUTOPLAY VIDEO
         const video = document.querySelector('#' + id + ' video');
         if(video) {
             video.currentTime = 0;
@@ -464,7 +463,6 @@
         }
     }
 
-    // Close modal when clicking outside the content
     window.onclick = function(event) {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
