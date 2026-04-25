@@ -52,7 +52,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             width: 90%;
-            max-width: 500px; /* MADE SMALLER FOR MORE SPACE */
+            max-width: 600px; /* Original size for PC */
             z-index: 10;
         }
 
@@ -91,19 +91,19 @@
         }
 
         .left {
-            left: 330px;
+            left: 330px; /* Original position for PC */
             gap: 35px;
         }
 
         .right {
-            right: 330px;
+            right: 330px; /* Original position for PC */
             gap: 65px;
         }
 
         .character-wrapper {
             position: relative;
-            width: 130px;
-            height: 90px;
+            width: 130px; /* Original size for PC */
+            height: 90px; /* Original size for PC */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -131,7 +131,7 @@
 
         .name-text {
             position: absolute;
-            font-size: 16px;
+            font-size: 16px; /* Original size for PC */
             font-weight: bold;
             color: white;
             text-shadow: 
@@ -211,30 +211,44 @@
         /* ===================================== */
 
         @media (max-width: 1024px) {
-            /* MAKE CHARACTERS SMALLER AND MOVE CLOSER */
+            
+            /* --- CENTER EVERYTHING --- */
+            body {
+                padding-left: 80px !important; /* Make space for left chars */
+                padding-right: 80px !important; /* Make space for right chars */
+            }
+
+            /* --- MAKE CHARACTERS SMALLER BUT STAY IN PLACE --- */
             .character-wrapper {
-                width: 60px !important;  /* VERY SMALL */
-                height: 45px !important; /* VERY SMALL */
+                width: 60px !important;
+                height: 45px !important;
             }
             
             .left {
-                left: 5px !important; /* VERY CLOSE TO EDGE */
+                left: 10px !important; /* Stay on left edge */
                 gap: 20px !important;
             }
 
             .right {
-                right: 5px !important; /* VERY CLOSE TO EDGE */
+                right: 10px !important; /* Stay on right edge */
                 gap: 20px !important;
             }
-            
-            /* MAKE PHOTOS SMALLER */
-            .gallery-container {
-                max-width: 400px !important;
-                width: 80% !important;
+
+            /* --- MAKE TEXT INSIDE CHARACTERS SMALLER ON PHONE --- */
+            .name-text {
+                font-size: 8px !important; /* VERY SMALL TEXT */
+                letter-spacing: 0.5px !important;
             }
 
+            /* --- MAKE TITLE AND PHOTOS FIT NICELY --- */
             .title {
                 font-size: 1.8rem;
+                text-align: center;
+            }
+            
+            .gallery-container {
+                max-width: 100% !important;
+                width: 100% !important;
             }
         }
 
@@ -246,7 +260,6 @@
             
             .gallery-container {
                 gap: 5px;
-                max-width: 350px !important;
             }
             
             body {
@@ -458,26 +471,4 @@
         document.body.style.overflow = "auto";
         const video = document.querySelector('#' + id + ' video');
         if(video) {
-            video.pause();
-            video.currentTime = 0;
-        }
-    }
-
-    window.onclick = function(event) {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            if (event.target == modal) {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto";
-                const video = modal.querySelector('video');
-                if(video) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
-            }
-        });
-    }
-</script>
-
-</body>
-</html>
+            video
