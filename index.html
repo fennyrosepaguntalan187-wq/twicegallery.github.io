@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            
+            /* Background Settings */
+            background-color: #000000;
+            background-image: url('logo.jpg');
+            background-size: 60%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        /* --- GLOWING TEXT STYLE --- */
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            
+            /* White Glow Effect */
+            text-shadow: 
+                0 0 10px #ffffff, 
+                0 0 20px #ffffff, 
+                0 0 30px #ffffff, 
+                0 0 40px #ffffff;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 90%;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===================================== */
+        /* ===     CHARACTERS STYLING      === */
+        /* ===================================== */
+
+        .character-column {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            z-index: 5;
+        }
+
+        .left {
+            left: 330px;
+            gap: 35px; /* Adjust space between LEFT characters here */
+        }
+
+        .right {
+            right: 330px;
+            gap: 65px; /* Adjust space between RIGHT characters here */
+        }
+
+        .character-wrapper {
+            position: relative;
+            /* === CHANGE SIZE HERE === */
+            width: 130px;  /* Smaller size */
+            height: 90px; /* Smaller size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* FLOATING ANIMATION */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Different speed for each to look natural */
+        .character-wrapper:nth-child(1) { animation-delay: 0s; }
+        .character-wrapper:nth-child(2) { animation-delay: 0.5s; }
+        .character-wrapper:nth-child(3) { animation-delay: 1s; }
+        .character-wrapper:nth-child(4) { animation-delay: 1.5s; }
+        .character-wrapper:nth-child(5) { animation-delay: 2s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .character-img {
+            width: 100%;
+            height: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .name-text {
+            position: absolute;
+            font-size: 16px; /* Slightly smaller text too */
+            font-weight: bold;
+            color: white;
+            text-shadow: 
+                0 0 10px #ffffff, 
+                0 0 20px #ffffff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* MAGIC EFFECT: Hide image, show name */
+        .character-wrapper:hover .character-img {
+            opacity: 0;
+        }
+
+        .character-wrapper:hover .name-text {
+            opacity: 1;
+        }
+
+        /* ===================================== */
+
+        /* Video Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 90vh;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            color: #ccc;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+            min-height: 300px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .character-column {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            .gallery-container {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- THE GLOWING TITLE -->
+<h1 class="title">Pick Your TWICE Bias</h1>
+
+<!-- ===================================== -->
+<!-- ===        CHARACTERS          === -->
+<!-- ===================================== -->
+
+<!-- LEFT SIDE -->
+<div class="character-column left">
+    <div class="character-wrapper">
+        <img src="characters/char1.png" alt="Navely" class="character-img">
+        <span class="name-text">Navely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char2.png" alt="Jeongvely" class="character-img">
+        <span class="name-text">Jeongvely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char3.png" alt="Movely" class="character-img">
+        <span class="name-text">Movely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char4.png" alt="Savely" class="character-img">
+        <span class="name-text">Savely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char5.png" alt="Jively" class="character-img">
+        <span class="name-text">Jively</span>
+    </div>
+</div>
+
+<!-- RIGHT SIDE -->
+<div class="character-column right">
+    <div class="character-wrapper">
+        <img src="characters/char6.png" alt="Mively" class="character-img">
+        <span class="name-text">Mively</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char7.png" alt="Davely" class="character-img">
+        <span class="name-text">Davely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char8.png" alt="Chaengvely" class="character-img">
+        <span class="name-text">Chaengvely</span>
+    </div>
+    <div class="character-wrapper">
+        <img src="characters/char9.png" alt="Tzuvely" class="character-img">
+        <span class="name-text">Tzuvely</span>
+    </div>
+</div>
+
+<!-- ===================================== -->
+
+<div class="gallery-container">
+    <!-- Item 1 -->
+    <div class="gallery-item" onclick="openModal('video1')">
+        <img src="images/image1.jpg" alt="Item 1">
+    </div>
+
+    <!-- Item 2 -->
+    <div class="gallery-item" onclick="openModal('video2')">
+        <img src="images/image2.jpg" alt="Item 2">
+    </div>
+
+    <!-- Item 3 -->
+    <div class="gallery-item" onclick="openModal('video3')">
+        <img src="images/image3.jpg" alt="Item 3">
+    </div>
+
+    <!-- Item 4 -->
+    <div class="gallery-item" onclick="openModal('video4')">
+        <img src="images/image4.jpg" alt="Item 4">
+    </div>
+
+    <!-- Item 5 -->
+    <div class="gallery-item" onclick="openModal('video5')">
+        <img src="images/image5.jpg" alt="Item 5">
+    </div>
+
+    <!-- Item 6 -->
+    <div class="gallery-item" size="600px" onclick="openModal('video6')">
+        <img src="images/image6.jpg" alt="Item 6">
+    </div>
+
+    <!-- Item 7 -->
+    <div class="gallery-item" onclick="openModal('video7')">
+        <img src="images/image7.jpg" alt="Item 7">
+    </div>
+
+    <!-- Item 8 -->
+    <div class="gallery-item" onclick="openModal('video8')">
+        <img src="images/image8.jpg" alt="Item 8">
+    </div>
+
+    <!-- Item 9 -->
+    <div class="gallery-item" onclick="openModal('video9')">
+        <img src="images/image9.jpg" alt="Item 9">
+    </div>
+</div>
+
+<!-- Video Modals -->
+<div id="video1" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video1')">&times;</span>
+        <video id="vid1" controls preload="metadata" width="100%">
+            <source src="videos/video1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<div id="video2" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video2')">&times;</span>
+        <video id="vid2" controls preload="metadata" width="100%">
+            <source src="videos/video2.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video3" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video3')">&times;</span>
+        <video id="vid3" controls preload="metadata" width="100%">
+            <source src="videos/video3.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video4" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video4')">&times;</span>
+        <video id="vid4" controls preload="metadata" width="100%">
+            <source src="videos/video4.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video5" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video5')">&times;</span>
+        <video id="vid5" controls preload="metadata" width="100%">
+            <source src="videos/video5.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video6" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video6')">&times;</span>
+        <video id="vid6" controls preload="metadata" width="100%">
+            <source src="videos/video6.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video7" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video7')">&times;</span>
+        <video id="vid7" controls preload="metadata" width="100%">
+            <source src="videos/video7.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video8" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video8')">&times;</span>
+        <video id="vid8" controls preload="metadata" width="100%">
+            <source src="videos/video8.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<div id="video9" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('video9')">&times;</span>
+        <video id="vid9" controls preload="metadata" width="100%">
+            <source src="videos/video9.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).style.display = "flex";
+        document.body.style.overflow = "hidden";
+        
+        // AUTOPLAY VIDEO
+        const video = document.querySelector('#' + id + ' video');
+        if(video) {
+            video.currentTime = 0;
+            video.play();
+        }
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+        document.body.style.overflow = "auto";
+        const video = document.querySelector('#' + id + ' video');
+        if(video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    }
+
+    // Close modal when clicking outside the content
+    window.onclick = function(event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+                const video = modal.querySelector('video');
+                if(video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
