@@ -214,33 +214,35 @@
         /* === RESPONSIVE DESIGN (PHONE MODE) === */
         /* ===================================== */
 
-        @media (max-width: 1200px) {
-            /* Hide characters on phone/tablet */
+        /* THIS IS STRONGER NOW! */
+        @media (max-width: 1024px) {
+            /* Hide characters COMPLETELY */
             .character-column {
-                display: none;
+                display: none !important;
             }
 
-            /* Make title smaller */
+            body {
+                padding: 10px;
+            }
+            
             .title {
-                font-size: 1.8rem;
-            }
-
-            /* Adjust gaps */
-            .gallery-container {
-                gap: 8px;
-                width: 95%;
+                font-size: 2rem;
             }
         }
 
         @media (max-width: 600px) {
-            /* Even smaller for very small phones */
             .title {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 letter-spacing: 1px;
             }
             
             .gallery-container {
                 gap: 5px;
+                width: 100%;
+            }
+            
+            body {
+                background-size: 80%; /* Make logo smaller on phone */
             }
         }
 
