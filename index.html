@@ -214,35 +214,43 @@
         /* === RESPONSIVE DESIGN (PHONE MODE) === */
         /* ===================================== */
 
-        /* THIS IS STRONGER NOW! */
+        /* I DELETED THE PART THAT HIDES THEM! */
+        /* NOW CHARACTERS WILL SHOW ON PHONE TOO! */
+
         @media (max-width: 1024px) {
-            /* Hide characters COMPLETELY */
-            .character-column {
-                display: none !important;
+            /* Make characters smaller on phone */
+            .character-wrapper {
+                width: 80px;
+                height: 60px;
+            }
+            
+            .left {
+                left: 10px; /* Move closer to edge */
+                gap: 25px;
             }
 
-            body {
-                padding: 10px;
+            .right {
+                right: 10px; /* Move closer to edge */
+                gap: 25px;
             }
             
             .title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
         }
 
         @media (max-width: 600px) {
             .title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 letter-spacing: 1px;
             }
             
             .gallery-container {
                 gap: 5px;
-                width: 100%;
             }
             
             body {
-                background-size: 80%; /* Make logo smaller on phone */
+                background-size: 80%;
             }
         }
 
