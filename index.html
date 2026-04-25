@@ -212,43 +212,40 @@
 
         @media (max-width: 1024px) {
             
-            /* --- CENTER EVERYTHING --- */
             body {
-                padding-left: 80px !important; /* Make space for left chars */
-                padding-right: 80px !important; /* Make space for right chars */
+                padding-left: 100px !important;
+                padding-right: 100px !important;
             }
 
-            /* --- MAKE CHARACTERS SMALLER BUT STAY IN PLACE --- */
             .character-wrapper {
                 width: 60px !important;
                 height: 45px !important;
             }
             
             .left {
-                left: 10px !important; /* Stay on left edge */
+                left: 15px !important;
                 gap: 20px !important;
             }
 
             .right {
-                right: 10px !important; /* Stay on right edge */
+                right: 15px !important;
                 gap: 20px !important;
             }
 
-            /* --- MAKE TEXT INSIDE CHARACTERS SMALLER ON PHONE --- */
             .name-text {
-                font-size: 8px !important; /* VERY SMALL TEXT */
+                font-size: 8px !important;
                 letter-spacing: 0.5px !important;
             }
 
-            /* --- MAKE TITLE AND PHOTOS FIT NICELY --- */
             .title {
                 font-size: 1.8rem;
-                text-align: center;
+                text-align: center !important;
             }
             
             .gallery-container {
                 max-width: 100% !important;
-                width: 100% !important;
+                width: 90% !important;
+                margin: 0 auto !important;
             }
         }
 
@@ -476,7 +473,7 @@
         }
     }
 
-        window.onclick = function(event) {
+    window.onclick = function(event) {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             if (event.target == modal) {
