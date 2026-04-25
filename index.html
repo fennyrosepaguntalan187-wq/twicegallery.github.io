@@ -210,27 +210,59 @@
         /* === RESPONSIVE DESIGN (PHONE MODE) === */
         /* ===================================== */
 
-                .left {
-            left: 330px;
-            gap: 35px;
+        @media (max-width: 1024px) {
+            
+            body {
+                padding-left: 70px !important;
+                padding-right: 70px !important;
+            }
+
+            .character-wrapper {
+                width: 55px !important;
+                height: 40px !important;
+            }
+            
+            .left {
+                left: 5px !important;
+                gap: 20px !important;
+            }
+
+            .right {
+                right: 5px !important;
+                gap: 20px !important;
+            }
+
+            .name-text {
+                font-size: 7px !important;
+                letter-spacing: 0px !important;
+            }
+
+            .title {
+                font-size: 1.7rem !important;
+                text-align: center !important;
+            }
+            
+            .gallery-container {
+                gap: 8px !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+            }
         }
 
-        .right {
-            right: 330px;
-            gap: 65px;
-        }
-
-        .character-wrapper {
-            width: 130px;
-            height: 90px;
-        }
-
-        .name-text {
-            font-size: 16px;
-        }
-
-        .gallery-container {
-            max-width: 600px;
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            
+            .gallery-container {
+                gap: 5px;
+            }
+            
+            body {
+                background-size: 80%;
+            }
         }
 
     </style>
@@ -455,7 +487,7 @@
                 }
             }
         });
-    }
+            }
 </script>
 
 </body>
